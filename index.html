@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticol - The Glue That Gets the Job Done</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Vibrant Gradient Backgrounds */
+        .gradient-bg-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-bg-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .gradient-bg-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .gradient-bg-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-cta {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 140px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+            padding: 20px 45px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            box-shadow: 0 8px 30px rgba(240, 147, 251, 0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(240, 147, 251, 0.4);
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            color: #64748b;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .problem-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .problem-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .problem-card p {
+            color: #64748b;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .solution-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+        }
+
+        .solution-text p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .solution-visual {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            height: 350px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 900;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 100px 0;
+            background: #f1f5f9;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: #4facfe;
+            font-weight: 900;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #475569;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 1rem;
+        }
+
+        .testimonial-company {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+            padding: 22px 55px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 40px rgba(240, 147, 251, 0.3);
+        }
+
+        .final-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 50px rgba(240, 147, 251, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: #94a3b8;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .solution-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .problem-grid,
+            .testimonials,
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-cta {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">STICOL</div>
+            <a href="mailto:abc@gmail.com?subject=Quick Quote Request - Bulk Glue" class="nav-cta">Get Quote</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>The Glue That Never Lets You Down</h1>
+                <p class="hero-subtitle">Industrial-strength adhesive that bonds harder, lasts longer, and costs less when you buy bulk.</p>
+                <a href="mailto:abc@gmail.com?subject=Book Meeting - Sticol Bulk Purchase&body=Hi Sticol Team,%0D%0A%0D%0AI need reliable glue for my business and want to discuss bulk pricing.%0D%0A%0D%0ACompany: [Your Company]%0D%0AMonthly Volume: [Estimate]%0D%0APhone: [Your Number]%0D%0A%0D%0AWhen can we talk?%0D%0A%0D%0AThanks!" class="hero-cta">Book Call Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title">Tired of Glue That Quits on You?</h2>
+            <p class="section-subtitle">Most adhesives fail when you need them most. Here's what's costing you money right now.</p>
+            <div class="problem-grid">
+                <div class="problem-card fade-in">
+                    <span class="problem-icon">💔</span>
+                    <h3>Bonds Break Under Pressure</h3>
+                    <p>Your current glue fails when temperatures rise, humidity hits, or real stress kicks in. Every failure costs you time, materials, and credibility.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <span class="problem-icon">💸</span>
+                    <h3>Premium Prices Kill Profits</h3>
+                    <p>Quality adhesives cost a fortune, especially for large projects. You're stuck choosing between performance and budget.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <span class="problem-icon">📦</span>
+                    <h3>No Real Bulk Discounts</h3>
+                    <p>Suppliers talk bulk but charge retail. You need industrial quantities at prices that make sense for your business.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution">
+        <div class="container">
+            <div class="solution-content">
+                <div class="solution-text slide-in-left">
+                    <h2>Built Different. Priced Right.</h2>
+                    <p>Sticol engineers adhesives that handle Dubai's brutal heat, construction site abuse, and industrial demands. Our advanced polymer chemistry creates bonds that actually get stronger over time.</p>
+                    <p>We manufacture at scale and sell direct to professionals. No distributor markups. No middleman margins. Just professional-grade performance at honest bulk prices.</p>
+                    <p>When your reputation depends on things staying stuck, you need glue that works as hard as you do.</p>
+                </div>
+                <div class="solution-visual slide-in-right">
+                    <span style="position: relative; z-index: 2;">UNBREAKABLE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-proof">
+        <div class="container">
+            <h2 class="section-title">Dubai Pros Choose Sticol</h2>
+            <p class="section-subtitle">Real businesses. Real results. Real savings.</p>
+            <div class="testimonials">
+                <div class="testimonial fade-in">
+                    <div class="testimonial-text">Cut our adhesive costs by 45% last quarter while improving bond reliability. Our rework dropped to almost zero. Best switch we've made.</div>
+                    <div class="testimonial-author">Ahmed Al-Rashid</div>
+                    <div class="testimonial-company">Dubai Construction Group</div>
+                </div>
+                <div class="testimonial fade-in">
+                    <div class="testimonial-text">Finally found glue that survives our factory conditions. High heat, constant vibration, chemical exposure - Sticol handles it all without breaking a sweat.</div>
+                    <div class="testimonial-author">Priya Sharma</div>
+                    <div class="testimonial-company">Gulf Manufacturing Ltd</div>
+                </div>
+                <div class="testimonial fade-in">
+                    <div class="testimonial-text">Bulk pricing that actually makes sense. Quality that beats brands costing twice as much. Our procurement team loves the predictable costs.</div>
+                    <div class="testimonial-author">Omar Hassan</div>
+                    <div class="testimonial-company">Emirates Steel Works</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Sticol Outperforms</h2>
+            <p class="section-subtitle">Three reasons professionals switch and never look back.</p>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Sticks Fast</h3>
+                    <p>Initial grab in under 45 seconds. Full strength in 6 hours. No holding, no waiting, no babysitting. Get back to work.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">🛡️</span>
+                    <h3>Lasts Long</h3>
+                    <p>Engineered for extremes. Temperature cycling, UV exposure, chemical contact, mechanical stress - it all makes our bond stronger.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">💰</span>
+                    <h3>Won't Break the Bank</h3>
+                    <p>True bulk pricing that scales with your business. The more you need, the more you save. Finally, economics that work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Stick With the Best?</h2>
+                <p>Join hundreds of Dubai businesses who've discovered what happens when your glue actually works as promised.</p>
+                <a href="mailto:abc@gmail.com?subject=Let's Talk Bulk Glue - Sticol Meeting Request&body=Hi,%0D%0A%0D%0AI'm interested in Sticol's bulk glue solutions for my business.%0D%0A%0D%0ACompany: [Your Company Name]%0D%0AIndustry: [Construction/Manufacturing/Other]%0D%0AMonthly Glue Usage: [Your estimate]%0D%0APhone: [Best number to reach you]%0D%0A%0D%0ACan we schedule a call this week to discuss pricing and samples?%0D%0A%0D%0AThank you!" class="final-cta">Book Your Call</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sticol. The adhesive that works as hard as you do.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+
+        // Enhanced card interactions
+        document.querySelectorAll('.problem-card, .testimonial, .feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px) scale(1.02)';
+                this.style.boxShadow = '0 25px 70px rgba(0,0,0,0.15)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Parallax effect for hero background
+        let ticking = false;
+        
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+            
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick);
+
+        // Dynamic button effects with enhanced ripples
+        document.querySelectorAll('.hero-cta, .final-cta, .nav-cta').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Create multiple ripple effect
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const ripple = document.createElement('span');
+                        const rect = this.getBoundingClientRect();
+                        const size = Math.max(rect.width, rect.height) * 1.5;
+                        const x = e.clientX - rect.left - size / 2;
+                        const y = e.clientY - rect.top - size / 2;
+                        
+                        ripple.style.cssText = `
+                            position: absolute;
+                            width: ${size}px;
+                            height: ${size}px;
+                            left: ${x}px;
+                            top: ${y}px;
+                            background: rgba(255, 255, 255, ${0.3 - i * 0.1});
+                            border-radius: 50%;
+                            transform: scale(0);
+                            animation: ripple 0.8s ease-out;
+                            pointer-events: none;
+                        `;
+                        
+                        this.style.position = 'relative';
+                        this.style.overflow = 'hidden';
+                        this.appendChild(ripple);
+                        
+                        setTimeout(() => ripple.remove(), 800);
+                    }, i * 100);
+                }
+            });
+        });
+
+        // Add enhanced ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2.5);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Smooth scroll behavior for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
